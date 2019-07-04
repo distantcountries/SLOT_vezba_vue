@@ -19,14 +19,32 @@
         <span v-if="slotProps.user.isGoingToExit">
           Jeste nego sta
         </span>
-          {{ slotProps.user.name }} {{ slotProps.user.isGoingToExit }}
+          {{ slotProps.user.isGoingToExit | goingToExit }}
       </template>
     </users-list> -->
 
     <!-- FILTERI -->
-  <div>{{ (message1, message)  | capitalize(message1, message)  }}</div> 
+  <!-- <div>{{ (message1, message)  | capitalize(message1, message)  }}</div>  -->
   <!-- prvo ce prikazati prvi objekat levo od | -->
 
+  <div v-for="(user, index) in users" :key="index">
+    <ThreeSlots>
+      <template slot="userName">
+          {{user.name}}
+      </template>
+
+      <template>
+        <slot>
+          <p>Bezveze text</p>
+        </slot>
+      </template>
+
+      <template slot="exit">
+          {{user.isGoingToExit | goingToExit}}
+      </template>
+      </ThreeSlots>
+  </div>
+  
   </div>
 </template>
 
@@ -34,6 +52,8 @@
 import HelloWorld from './components/HelloWorld.vue'
 import TodoList from './components/TodoList.vue'
 import UsersList from './components/UsersList.vue'
+import ThreeSlots from './components/ThreeSlots.vue'
+
 
 export default {
   name: 'app',
@@ -41,11 +61,25 @@ export default {
     HelloWorld,
     TodoList,
     UsersList,
+    ThreeSlots
   },
     data(){
       return {
         message: 'Ovo je message',
-        message1: 'Ovo je message 1'
+        message1: 'Ovo je message 1',
+
+        users: [
+                        { name:'Misa', isGoingToExit: true },
+                        { name:'Pera', isGoingToExit: false },
+                        { name:'Zika', isGoingToExit: true },
+                        { name:'Mika', isGoingToExit: false },
+                        { name:'Uros', isGoingToExit: false },
+                        { name:'Srna', isGoingToExit: true },
+                        { name:'Bora', isGoingToExit: false },
+                        { name:'Laza', isGoingToExit: false },
+                        { name:'Mira', isGoingToExit: true }
+                    ],
+        
       }
     },
 
