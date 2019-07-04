@@ -1,25 +1,78 @@
 <template>
   <div id="app">
-    <todo-list>
-      <div slot="title">
-        <h1>Title</h1>
-      </div>
-      <p>I am the text from parent Component.</p>
+    <!-- <todo-list :shouldShowContent="false">
+
+      <template slot="title">
+        <h1>I am the text from parent Component.</h1>
+      </template>
+
+      <template slot="content">
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+      </template>
+      
     </todo-list>
+    
+    <users-list>
+      <template slot-scope="slotProps">
+        <span v-if="slotProps.user.isGoingToExit">
+          Jeste nego sta
+        </span>
+          {{ slotProps.user.name }} {{ slotProps.user.isGoingToExit }}
+      </template>
+    </users-list> -->
+
+    <!-- FILTERI -->
+  <div>{{ (message1, message)  | capitalize(message1, message)  }}</div> 
+  <!-- prvo ce prikazati prvi objekat levo od | -->
+
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import TodoList from './components/TodoList.vue'
-
+import UsersList from './components/UsersList.vue'
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
-    TodoList
+    TodoList,
+    UsersList,
+  },
+    data(){
+      return {
+        message: 'Ovo je message',
+        message1: 'Ovo je message 1'
+      }
+    },
+
+  filters: {
+    capitalize: function (value, value1) {
+      if (!value && !value1) {
+        return ''
+      }
+      value = value.toString()
+      value1 = value1.toString()
+      
+      return  value.charAt(0).toUpperCase() + value.slice(1) + value1.charAt(0).toUpperCase() + value1.slice(1)
+
+    },
+  
+
+    toLowerCase: function (value) {
+        if (!value) {
+          return ''
+        }
+        value = value.toString()
+        return  value.charAt(0).toLowerCase() + value.slice(1)
+    },
+
   }
+  
+
 }
 </script>
 
